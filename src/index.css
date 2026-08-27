@@ -1,0 +1,226 @@
+/* ============================================================
+   PathSeeker — Design System Foundation
+   Global stylesheet: tokens, fonts, typography, base resets
+   FINAL THEME (REDESIGN-1) — Gold/Passport Glass Language
+   ============================================================ */
+
+/* --- Tailwind Directives ----------------------------------- */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================================
+   DESIGN TOKENS — CSS Custom Properties
+   Light mode = :root  |  Dark mode = .dark
+   ============================================================ */
+:root {
+  /* Light mode palette */
+  --bg-base: #FAF1EC;
+  --bg-card: #F9F3EF;
+  --text-primary: #14151A;
+  --text-muted: #66718C;
+  --border-subtle: #66718C;
+
+  /* Gold accent (same both modes) */
+  --accent-gold: #D5BA84;
+  --accent-gold-glow: #F3DDA5;
+  --accent-gold-deep: #B29A6E;
+  --accent-gold-badge: #E1C58C;
+
+  /* Supplementary tokens */
+  --bg-input: #FFFFFF;
+  --bg-void: #FAF1EC;
+  --bg-glass: #F9F3EF;
+  --shadow-card: 0 2px 12px rgba(0, 0, 0, 0.06);
+  --shadow-card-hover: 0 8px 30px rgba(0, 0, 0, 0.12);
+  --ring-focus: rgba(213, 186, 132, 0.4);
+}
+
+.dark {
+  /* Dark mode palette */
+  --bg-base: #14151A;
+  --bg-card: #1B2132;
+  --text-primary: #F9F3EF;
+  --text-muted: #717B94;
+  --border-subtle: #66718C;
+
+  /* Gold accent (same both modes) */
+  --accent-gold: #D5BA84;
+  --accent-gold-glow: #F3DDA5;
+  --accent-gold-deep: #B29A6E;
+  --accent-gold-badge: #E1C58C;
+
+  /* Supplementary tokens */
+  --bg-input: #1B2132;
+  --bg-void: #14151A;
+  --bg-glass: #1B2132;
+  --shadow-card: 0 2px 12px rgba(0, 0, 0, 0.25);
+  --shadow-card-hover: 0 8px 30px rgba(0, 0, 0, 0.4);
+  --ring-focus: rgba(213, 186, 132, 0.5);
+}
+
+/* ============================================================
+   FONT SIZE ACCESSIBILITY — data-font-size attribute
+   ============================================================ */
+html[data-font-size="small"] {
+  font-size: 14px;
+}
+
+html[data-font-size="medium"],
+html:not([data-font-size]) {
+  font-size: 16px;
+}
+
+html[data-font-size="large"] {
+  font-size: 18px;
+}
+
+/* ============================================================
+   BASE LAYER — Typography & Global Resets
+   ============================================================ */
+@layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    @apply font-sans text-body-base;
+    color: var(--text-primary);
+    background-color: var(--bg-base);
+    margin: 0;
+    padding: 0;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  /* Headings → font-display / serif (DM Serif Display) */
+  h1, h2, h3, h4, h5, h6 {
+    font-family: "DM Serif Display", Georgia, serif;
+    color: var(--text-primary);
+  }
+
+  h1 { @apply text-heading-1; }
+  h2 { @apply text-heading-2; }
+  h3 { @apply text-heading-3; }
+
+  /* Links */
+  a {
+    color: var(--accent-gold);
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  a:hover {
+    color: var(--text-primary);
+  }
+
+  /* Focus-visible for keyboard navigation */
+  :focus-visible {
+    outline: 2px solid var(--accent-gold);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  /* Remove focus outline for mouse/touch */
+  :focus:not(:focus-visible) {
+    outline: none;
+  }
+
+  /* Selection styling */
+  ::selection {
+    background-color: var(--accent-gold);
+    color: #14151A;
+  }
+}
+
+/* ============================================================
+   COMPONENT LAYER — Reusable patterns
+   ============================================================ */
+@layer components {
+  /* Container utility */
+  .container-app {
+    @apply mx-auto w-full max-w-7xl px-4;
+  }
+
+  @media (min-width: 768px) {
+    .container-app {
+      @apply px-6;
+    }
+  }
+
+  @media (min-width: 1280px) {
+    .container-app {
+      @apply px-8;
+    }
+  }
+
+  /* Glass panel utility — backdrop-blur + translucent bg */
+  .glass-panel {
+    background: rgba(27, 33, 50, 0.55);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(102, 113, 140, 0.2);
+  }
+
+  .dark .glass-panel {
+    background: rgba(27, 33, 50, 0.55);
+  }
+
+  :root .glass-panel {
+    background: rgba(249, 243, 239, 0.7);
+  }
+
+  /* Gold glow utility */
+  .gold-glow {
+    box-shadow: 0 0 24px rgba(243, 221, 165, 0.25);
+  }
+}
+
+/* ============================================================
+   UTILITY LAYER — Overrides & helpers
+   ============================================================ */
+@layer utilities {
+  /* Smooth theme transition helper */
+  .theme-transition {
+    transition: background-color 0.3s ease, color 0.3s ease,
+                border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  /* Truncate multi-line text */
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+}
+
+/* ============================================================
+   KEYFRAMES
+   ============================================================ */
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.7s ease-out both;
+}
